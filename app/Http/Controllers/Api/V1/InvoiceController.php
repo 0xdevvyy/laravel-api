@@ -19,7 +19,7 @@ class InvoiceController extends Controller
     public function index(Invoice $invoice, Request $request)
     {
 
-      $filter = new InvoiceFilter();
+        $filter = new InvoiceFilter();
         $queryItems = $filter->transorm($request); 
 
         if(empty($queryItems)){
