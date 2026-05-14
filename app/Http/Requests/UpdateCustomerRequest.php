@@ -4,6 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
+use Override;
 
 class UpdateCustomerRequest extends FormRequest
 {
@@ -12,7 +14,7 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,8 +24,24 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function rules(): array
     {
+
+
         return [
-            //
+            'name' => ['required'],
+            'type' => ['required', Rule::in(['I', 'B', 'i', 'b'])],
+            'email' => ['required', 'email'],
+            'address' => ['required'],
+            'city' => ['required'],
+            'state' => ['required'],
+            'postal_code' => ['required'],
         ];
+    }
+
+    #[Override]
+   
+    protected function prepareForValidation(){
+        $this->merge([
+            'postal_code' => $this->postalCode,
+        ]);
     }
 }

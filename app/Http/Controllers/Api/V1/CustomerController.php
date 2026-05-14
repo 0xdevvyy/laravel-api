@@ -31,20 +31,13 @@ class CustomerController extends Controller
         return new CustomerCollection($customers->paginate()->appends($request->query()));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(StoreCustomerRequest $request)
     {
-        
+        return new CustomerResource(Customer::create($request->all()));
     }
 
     /**
@@ -61,20 +54,13 @@ class CustomerController extends Controller
         return new CustomerResource($customer);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Customer $customer)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateCustomerRequest $request, Customer $customer)
     {
-        //
+        $customer->update($request->all());
     }
 
     /**
